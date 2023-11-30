@@ -1,7 +1,7 @@
 import './category.styles.scss'
 import Categories from "./categoriesJSON";
 
-const Category = () => {
+const Home = () => {
 
     let categories = Categories
 
@@ -13,7 +13,7 @@ const Category = () => {
                     <div key={id} className="category-container">
                         <div className='background-image' style={{ backgroundImage: `url(${element.imageUrl})` }}></div>
                         <div className="category-body-container">
-                            <h2>{element.title}</h2>
+                            <h2>{element.title.toLocaleUpperCase()}</h2>
                             <p>Shop Now</p>
                         </div>
                     </div>
@@ -26,4 +26,4 @@ const Category = () => {
     );
 }
 
-export default Category;
+export default Home;
