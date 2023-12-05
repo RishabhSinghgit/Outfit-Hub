@@ -1,18 +1,18 @@
-import { signInWithPopupMethod, createUserDocumentFromAuth } from "../../utils/firebase.utils";
+import { signInWithPopupMethod, createUserDocumentFromAuth, signInWithGoogleRedirect } from "../../utils/firebase.utils";
 
 const SignIn = ( ) =>{
    
      const logGoogleUser = async ()=>{
         const { user} = await signInWithPopupMethod();
-        createUserDocumentFromAuth(user)
+        const userDocRef =  await createUserDocumentFromAuth(user);
      }
 
     return (
         <div>
-            <h1>THIS IS SignIn COMPONENNT</h1>
-            <button onClick={logGoogleUser}>Google SingIn</button>
+            <h1>Sign In With Google's signInWithPopupMethod</h1>
+            <button onClick={logGoogleUser}>Google SingIn PopUp</button>
         </div>
     )
-}
+} 
 
 export default SignIn
