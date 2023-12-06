@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app"; /** Creates an app instance config */
-import { getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword } from "firebase/auth";
 import { getFirestore, indexedDBLocalPersistence, getDoc, setDoc, doc } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -23,25 +23,28 @@ export const signInWithPopupMethod = () => signInWithPopup(auth, provider);
 export const signInWithGoogleRedirect = ()=> signInWithRedirect(auth, provider)
 export const db = getFirestore(); /** Coonnects to the firebase databse console */
 
-/** To check existing document reference , a type of object firebase uses when talking about actual instance of document model   */
-export const createUserDocumentFromAuth = async (userAuth) => {
+/** To fetch and   To check existing document reference , a type of object firebase uses when talking about actual instance of document model   */
+export const createUserDocumentFromAuth = async (userAuth, additionalInformation) => {
     const userDocRef = doc(db, 'users', userAuth.uid);
     const userSnapShop = await getDoc(userDocRef);      // to get the user's document
 
     if (!userSnapShop.exists()) {
-
         const { displayName, email } = userAuth;
         const createdAt = new Date();
-
         try {
-
-            await setDoc(userDocRef, {  displayName,email,  createdAt});
-
+            await setDoc(userDocRef, {  displayName,email,  createdAt, ...additionalInformation});
         } catch (error) {
             console.log(`Error While Creating an User`, error)
         }
+  }
 
-    }
+}
 
+export const  createAuthUserWithEmailAndPassword = async(email, password)=>{
+      
+      if (!email || !password) return;
+
+       const response = await createUserWithEmailAndPassword(auth,email, password);
+       return response
 }
 
