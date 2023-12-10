@@ -22,12 +22,7 @@ const SignUpForm = () => {
     setValues({ ...values, [name]: value });
   };
 
-  const { userName, email, password, confirmPassword } = values;
   
-  const { setCurrentUser } = useContext(UserContext)
- 
-
-
   const handleReset = ()=>{
     setValues(defaultFormFields)
   };
@@ -43,7 +38,7 @@ const SignUpForm = () => {
         email,
         password
       );
-      setCurrentUser(user)
+    
       await createUserDocumentFromAuth(user, userName);
       handleReset();
 
@@ -51,11 +46,14 @@ const SignUpForm = () => {
       if (error.code === "auth/email-already-in-use") {
         alert("Email Already In Use!");
       }
-      console.log(`Erro while User Creation `, error);
+
     }
   };
 
+  const { userName, email, password, confirmPassword } = values;
+
   return (
+    
     <div className="sign-up-container">
       <h2>Don't have an account ?</h2>
       <span>Sign up with email and password</span>

@@ -1,8 +1,8 @@
 import "./category.styles.scss";
-import Categories from "./categoriesJSON";
+import categories from '../../config/category-data.json';
 
 const Home = () => {
-  let categories = Categories;
+ 
 
   return (
     <div className="categories-container">

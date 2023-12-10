@@ -1,4 +1,4 @@
-let categoryJSON = [
+[
   {
     "id": 1,
     "title": "hats",
@@ -25,5 +25,3 @@ let categoryJSON = [
     "imageUrl": "https://i.ibb.co/R70vBrQ/men.png"
   }
 ]
-
-export default categoryJSON
