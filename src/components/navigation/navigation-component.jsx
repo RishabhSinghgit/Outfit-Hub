@@ -1,15 +1,16 @@
-import { Fragment , useContext } from "react";
+import { Fragment, useContext } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { ReactComponent as CrownLogo } from "../../assets/crown.svg";
 import "./navigation.styles.scss";
 import { UserContext } from "../../context/user.context";
-import { signOut } from "firebase/auth";
 import { signOutUser } from "../../utils/firebase.utils";
+import CartIcon from "../cart-icon/cart-icon-component";
+import CardDropdown from "../cart-dropdown/cart-dropdown-component";
+import { CartContext } from "../../context/cart-context";
 
 const Navigation = () => {
-
-    const  { currentUser } = useContext(UserContext);
-
+  const { currentUser } = useContext(UserContext);
+  const { isCartOpen } = useContext(CartContext)
 
   return (
     <Fragment>
@@ -24,13 +25,18 @@ const Navigation = () => {
           </Link>
 
           {currentUser ? (
-            <span className="nav-link" onClick={signOutUser}>SIGN OUT</span>
+            <span className="nav-link" onClick={signOutUser}>
+              SIGN OUT
+            </span>
           ) : (
             <Link className="nav-link" to="/auth">
               SIGN IN
             </Link>
           )}
+
+          <CartIcon />
         </div>
+       { isCartOpen && <CardDropdown   />}              {/* short circuit operator  component is always truthy because it is function*/}
       </div>
       <Outlet />
     </Fragment>
